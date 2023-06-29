@@ -1,0 +1,18 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Data</h1>
+
+<button class="btn btn-primary" @onclick="showHidden"></button>
+
+@code {
+    private string hiddenText = "";
+    private void showHidden()
+    {
+        hiddenText = "512 labs is a testing facility of the most advanced, dangerous and eventualy benifical biochemical tecknology. We will\n"
+                    +"change the world with our tecknology but none shall know of what we do. These secrets will remain earthed untill the \n"
+                    +"world is in our hands. Then a new age will begin one of enligtenment one of change one of new begginings.";
+    }
+}
+<p role="status">@hiddenText</p>

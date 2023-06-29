@@ -1,0 +1,47 @@
+﻿@page "/fetchdata"
+@using EmptyWorld.Shared
+@inject HttpClient Http
+
+<PageTitle>Travel</PageTitle>
+
+<h1>Travel station</h1>
+
+<p>If the storms clear you will be able to travel the lands</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading please wait...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (K)</th>
+                <th>Weather</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureK</td>
+                    <td>@forecast.Weather</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+}
